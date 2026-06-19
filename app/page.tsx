@@ -1,5 +1,5 @@
 'use client'
-import { dialog, DialogContainer, DialogProvider } from "@/registry/promise-dialog/promise-dialog";
+import { dialog, DialogContainer, DialogProvider } from "@/components/ui/promise-dialog";
 import { Button } from "@/components/ui/button";
 import { TesteComponent } from "@/components/teste-component";
 import { useState } from "react";

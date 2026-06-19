@@ -1,6 +1,6 @@
-import { useDialog } from "@/registry/promise-dialog/promise-dialog"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
+import { useDialog } from "./ui/promise-dialog"
 
 export function TesteComponent() {
     

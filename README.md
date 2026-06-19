@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# promise-dialog
 
-## Getting Started
+Biblioteca de demonstração para modais/drawers baseados em promessa no Next.js + React.
 
-First, run the development server:
+## Sobre
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Este projeto mostra como abrir um diálogo dinamicamente a partir de qualquer componente usando uma API baseada em `Promise`.
+
+O `promise-dialog` renderiza componentes dentro de um `DialogContainer` global e permite que o componente filho retorne dados quando o modal é fechado.
+
+## Tecnologias
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- Vaul (drawer)
+- eventemitter3
+- lodash
+
+
+## Como usar
+
+1. Envolva o app com o `DialogContainer` uma vez, normalmente no layout ou na página principal.
+2. Chame `dialog(SeuComponente, options)` para abrir o modal.
+3. No componente renderizado, use `useDialog()` para fechar e receber opções.
+
+### Exemplo
+
+```tsx
+'use client'
+
+import { dialog, DialogContainer } from '@/components/ui/promise-dialog'
+import { Button } from '@/components/ui/button'
+import { TesteComponent } from '@/components/teste-component'
+import { useState } from 'react'
+
+export default function Home() {
+  const [status, setStatus] = useState(false)
+
+  async function openDialog() {
+    const result = await dialog(TesteComponent, {
+      title: 'Dialog de TESTE',
+      data: new Date().toJSON(),
+    })
+
+    setStatus(!!result)
+    console.log(result)
+  }
+
+  return (
+    <div className="p-4">
+      <Button onClick={openDialog}>Clique</Button>
+      {status ? 'SIM' : 'NAO'}
+      <DialogContainer />
+    </div>
+  )
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### API
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `dialog(element, options?)`
+  - `element`: componente React que será renderizado dentro do diálogo
+  - `options`: objeto com `title`, `data`, `size`, `position`
+  - retorna `Promise<any>` que resolve quando o diálogo é fechado
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `useDialog()`
+  - `close(data)`: fecha o diálogo e retorna `data` para quem chamou
+  - `setTitle(title)`: atualiza o título do diálogo
+  - `setSize(size)`: atualiza o tamanho do diálogo
+  - `setPosition(position)`: atualiza a posição do diálogo
+  - `options`: opções passadas originalmente para o diálogo
 
-## Learn More
+## Instalação
 
-To learn more about Next.js, take a look at the following resources:
+### Via Shadcn Registry
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npx shadcn@latest add wargas/promise-dialog/promise-dialog
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ou
 
-## Deploy on Vercel
+```bash
+bunx shadcn@latest add wargas/promise-dialog/promise-dialog
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Observações
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- O `DialogContainer` deve estar presente no JSX para que os diálogos sejam renderizados.
+- A implementação atual utiliza `Drawer` do `vaul`, mas pode ser adaptada para outros tipos de modais.
