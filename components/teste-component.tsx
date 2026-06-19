@@ -1,4 +1,4 @@
-import { useDialog } from "@/registry/promise-dialog"
+import { useDialog } from "@/registry/promise-dialog/promise-dialog"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 

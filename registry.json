@@ -18,7 +18,7 @@
             ],
             "files": [
                 {
-                    "path": "registry/promise-dialog/index.tsx",
+                    "path": "registry/promise-dialog/promise-dialog.tsx",
                     "type": "registry:ui"
                 }
             ]
