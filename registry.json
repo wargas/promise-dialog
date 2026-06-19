@@ -1,0 +1,27 @@
+{
+    "$schema": "https://ui.shadcn.com/schema/registry.json",
+    "name": "acme",
+    "homepage": "https://acme.com",
+    "items": [
+        {
+            "name": "promise-dialog",
+            "type": "registry:ui",
+            "title": "Dialog Promise",
+            "description": "Dialog manager",
+            "dependencies": [
+                "eventemitter3", "lodash"
+            ],
+            "registryDependencies": [
+                "@shadcn/drawer",
+                "@shadcn/card",
+                "@shadcn/button"
+            ],
+            "files": [
+                {
+                    "path": "registry/promise-dialog/index.tsx",
+                    "type": "registry:ui"
+                }
+            ]
+        }
+    ]
+}
